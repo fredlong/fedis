@@ -2,30 +2,25 @@ package fedis;
 
 import java.util.HashMap;
 
-import com.fedis.RedisProxy;
+import redis.clients.util.SafeEncoder;
+
 import com.fedis.RedisProxyFactory;
+import com.fedis.impl.RedisProxy;
 import com.fedis.router.RedisNode;
 
 public class Test {
 	public static void main(String[] args) throws Exception{
-		RedisNode node = new RedisNode();
-		node.setId(0);
-		node.setHost("10.211.55.5");
-		node.setPort(6379);
-		node.setWeight(50);
-		node.setRoleName("Test");
+
+		TestUtils.initRedis();
+
 		
-		RedisNode node2 = new RedisNode();
-		node2.setId(1);
-		node2.setHost("10.211.55.5");
-		node2.setPort(6380);
-		node2.setWeight(50);
-		node2.setRoleName("Test");
 		
-		RedisProxyFactory.getInstance().addRedisNode(node);
-		RedisProxyFactory.getInstance().addRedisNode(node2);
+		RedisProxy proxy = RedisProxyFactory.getInstance().getRedisProxy("test");
 		
-		RedisProxy proxy = RedisProxyFactory.getInstance().getRedisProxy(node.getRoleName());
+		System.out.println(proxy.getString("11"));
+		
+		
+		
 		String key1 = "1";
 		String key2 = "2";
 		String key3 = "3";
@@ -49,21 +44,24 @@ public class Test {
 		proxy.set(key9, 9);
 		proxy.set(key10, 10);
 		
-		System.out.println(proxy.getStr(key1));
-		System.out.println(proxy.getStr(key2));
-		System.out.println(proxy.getStr(key3));
-		System.out.println(proxy.getStr(key4));
-		System.out.println(proxy.getStr(key5));
-		System.out.println(proxy.getStr(key6));
-		System.out.println(proxy.getStr(key7));
-		System.out.println(proxy.getStr(key8));
-		System.out.println(proxy.getStr(key9));
-		System.out.println(proxy.getStr(key10));
+		System.out.println(proxy.getString(key1));
+		System.out.println(proxy.getString(key2));
+		System.out.println(proxy.getString(key3));
+		System.out.println(proxy.getString(key4));
+		System.out.println(proxy.getString(key5));
+		System.out.println(proxy.getString(key6));
+		System.out.println(proxy.getString(key7));
+		System.out.println(proxy.getString(key8));
+		System.out.println(proxy.getString(key9));
+		System.out.println(proxy.getString(key10));
 		
-		String key = "hello";
-		HashMap<String , String> hm = new HashMap<String , String>();
-		hm.put("abc", "abcd");
-		proxy.hmset(key, hm);
+		
+
+//		
+//		String key = "hello";
+//		HashMap<String , String> hm = new HashMap<String , String>();
+//		hm.put("abc", "abcd");
+//		proxy.hmset(key, hm);
 		//get 
 	}
 }

@@ -31,7 +31,7 @@ public class RedisCluster implements ReRoutable{
 
 	private JedisPool jedisPool;
 
-	public RedisCluster(RedisNode node) throws SQLException {
+	public RedisCluster(RedisNode node){
 		this.node = node;
 		this.jedisPool = new JedisPool(node.getHost(), node.getPort());
 	}

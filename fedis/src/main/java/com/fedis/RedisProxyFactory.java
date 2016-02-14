@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fedis.impl.RedisProxy;
 import com.fedis.router.RedisNode;
 import com.fedis.util.FedisException;
 
@@ -44,12 +45,11 @@ public class RedisProxyFactory {
 	}
 
 	private RedisProxyFactory() {
-		super();
 		redisMap = new HashMap<Integer, RedisCluster>();
 		proxyMap = new HashMap<String, RedisProxy>();
 	}
 	
-	public void addRedisNode(RedisNode node) throws SQLException, FedisException{
+	public void addRedisNode(RedisNode node) throws FedisException{
 		RedisCluster redisCluster = new RedisCluster(node);
 		RedisProxy proxy = proxyMap.get(node.getRoleName());
 
